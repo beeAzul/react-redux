@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Button, Form, FormGroup, Label, Input, FormText} from "reactstrap";
+import {Form, FormGroup, Label, Input} from "reactstrap";
 
 class Post extends Component {
 
@@ -16,8 +16,20 @@ class Post extends Component {
     addTodo = (e) => {
         e.preventDefault();
 
+        const post = {
+            title: this.state.title,
+            completed: this.state.completed,
+        }
 
-
+        fetch("https://jsonplaceholder.typicode.com/todos", {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(post)
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
 
 
     }

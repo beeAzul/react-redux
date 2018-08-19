@@ -1,34 +1,38 @@
 import React, {Component} from "react";
 import { Button } from "reactstrap";
+import { connect } from 'react-redux';
+import {fetchTodos} from "../actions/postActions";
 
-class TodoList extends Component {
+class TodosList extends Component {
 
-    constructor(props) {
+    // Now fetch() is moved to the postActions.js
+    /*constructor(props) {
         super(props);
 
         this.state = {
             todos: []
         }
-    }
-
-
-    componentWillMount() {
+    }*/
+    /*componentWillMount() {
         fetch("https://jsonplaceholder.typicode.com/todos")
             .then(rep => rep.json())
             .then(data => {
-                // console.log(data);
+                    // console.log(data);
                     this.setState( {todos: data} )
                 }
             )
 
-    };
+    };*/
 
+    componentDidMount() {
+        this.props.fetchTodos();
+    }
 
     render() {
 
         return (
             <div className="container">
-                { this.state.todos.map( task => (
+                { this.props.todos.map( task => (
                             <Todo key={task.id} task={task}/>
                         )
                     )
@@ -51,5 +55,8 @@ const Todo = (props) => {
         </div>
         )
 };
+const mapStateToProps = state => ({
+    todos: state.todos.items
+})
 
-export default TodoList;
+export default connect(mapStateToProps, {fetchTodos})(TodosList);

@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import TodoList from './components/TodoList';
-import Post from './components/Post';
+import TodosList from './components/TodosList';
+import PostTodos from './components/PostTodos';
+import {Provider} from 'react-redux';
+import store from './store/store'
+
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+        <Provider store={store}>
+
+        <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-              <Post />
-              <TodoList />
+              <PostTodos />
+              <TodosList />
       </div>
+        </Provider>
     );
   }
 }
