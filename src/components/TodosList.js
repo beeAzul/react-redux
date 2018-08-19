@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { Button } from "reactstrap";
 import { connect } from 'react-redux';
 import {fetchTodos} from "../actions/postActions";
+import PropTypes from 'prop-types';
 
 class TodosList extends Component {
 
@@ -55,6 +56,11 @@ const Todo = (props) => {
         </div>
         )
 };
+TodosList.propTypes = {
+    fetchTodos: PropTypes.func.isRequired,
+    todos: PropTypes.array.isRequired
+
+}
 const mapStateToProps = state => ({
     todos: state.todos.items
 })
