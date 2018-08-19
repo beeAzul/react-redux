@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import { Button } from "reactstrap";
 import { connect } from 'react-redux';
-import {fetchTodos} from "../actions/postActions";
+import {fetchTodos} from "../actions/todoActions";
 import PropTypes from 'prop-types';
 
 class TodosList extends Component {
 
-    // Now fetch() is moved to the postActions.js
+    // Now fetch() is moved to the todoActions.js
     /*constructor(props) {
         super(props);
 
@@ -27,6 +27,12 @@ class TodosList extends Component {
 
     componentDidMount() {
         this.props.fetchTodos();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if( nextProps.newTodo) {
+            this.props.todos.unshift(nextProps.newTodo)
+        }
     }
 
     render() {
@@ -58,11 +64,12 @@ const Todo = (props) => {
 };
 TodosList.propTypes = {
     fetchTodos: PropTypes.func.isRequired,
-    todos: PropTypes.array.isRequired
-
+    todos: PropTypes.array.isRequired,
+    newTodo: PropTypes.object
 }
 const mapStateToProps = state => ({
-    todos: state.todos.items
+    todos: state.todos.items,
+    newTodo: state.todos.item
 })
 
-export default connect(mapStateToProps, {fetchTodos})(TodosList);
+export default connect(mapStateToProps, { fetchTodos })(TodosList);
